@@ -6,18 +6,15 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.jamiltondamasceno.projetonetflixapi.adapter.FilmeAdapter
 import com.jamiltondamasceno.projetonetflixapi.api.FilmeAPI
 import com.jamiltondamasceno.projetonetflixapi.api.RetrofitService
-import com.jamiltondamasceno.projetonetflixapi.api.ViaCepAPI
 import com.jamiltondamasceno.projetonetflixapi.databinding.ActivityMainBinding
 import com.jamiltondamasceno.projetonetflixapi.model.Endereco
 import com.jamiltondamasceno.projetonetflixapi.model.FilmeRecente
 import com.jamiltondamasceno.projetonetflixapi.model.FilmeResposta
-import com.jamiltondamasceno.projetonetflixapi.model.Genero
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
 import retrofit2.Response
@@ -76,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 resposta = viaCepAPI.recuperarEndereco()
             }catch (e: Exception){
-                exibirMensagem("Erro ao fazer a requisição")
+                showMessage("Erro ao fazer a requisição")
             }
 
             if( resposta != null ){
@@ -92,10 +89,10 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 }else{
-                    exibirMensagem("Não foi possível recuperar o filme recente CODIGO: ${resposta.code()}")
+                    showMessage("Não foi possível recuperar o endereço recente CODIGO: ${resposta.code()}")
                 }
             }else{
-                exibirMensagem("Não foi possível fazer a requisição")
+                showMessage("Não foi possível fazer a requisição")
             }
 
         }
@@ -191,7 +188,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 resposta = filmeAPI.recuperarFilmesPopulares(pagina)
             }catch (e: Exception){
-                exibirMensagem("Erro ao fazer a requisição")
+                showMessage("Erro ao fazer a requisição")
             }
 
             if( resposta != null ){
@@ -214,10 +211,10 @@ class MainActivity : AppCompatActivity() {
 
 
                 }else{
-                    exibirMensagem("Não foi possível recuperar o filme recente CODIGO: ${resposta.code()}")
+                    showMessage("Não foi possível recuperar o filme recente CODIGO: ${resposta.code()}")
                 }
             }else{
-                exibirMensagem("Não foi possível fazer a requisição")
+                showMessage("Não foi possível fazer a requisição")
             }
 
         }
@@ -231,7 +228,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 resposta = filmeAPI.recuperarFilmeRecente()
             }catch (e: Exception){
-                 exibirMensagem("Erro ao fazer a requisição")
+                 showMessage("Erro ao fazer a requisição")
             }
 
             if( resposta != null ){
@@ -253,16 +250,16 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 }else{
-                    exibirMensagem("Não foi possível recuperar o filme recente CODIGO: ${resposta.code()}")
+                    showMessage("Não foi possível recuperar o filme recente CODIGO: ${resposta.code()}")
                 }
             }else{
-                exibirMensagem("Não foi possível fazer a requisição")
+                showMessage("Não foi possível fazer a requisição")
             }
 
         }
     }
 
-    private fun exibirMensagem( mensagem: String ) {
+    private fun showMessage(mensagem: String ) {
         Toast.makeText(
             applicationContext,
             mensagem,
